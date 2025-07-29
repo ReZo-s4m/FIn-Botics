@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="mt-40">
-      {user}
+      {/* {user} */}
       <HeroSec />
       <section className="py-20 bg-red-50">
         <div className="container mx-auto px-4">
