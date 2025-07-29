@@ -194,3 +194,6 @@ ARCJET_KEY=
 
 ##Live Link
 https://type-finance.vercel.app/
+
+[![Watch the video](https://img.youtube.com/vi/jUeAbxGZlNY/0.jpg)](https://youtu.be/jUeAbxGZlNY)
+
