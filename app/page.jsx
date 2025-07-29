@@ -4,10 +4,10 @@ import { featuresData, howItWorksData, statsData } from "@/data/landin";
 import { Card,CardContent } from "@/components/ui/card";
 import Link from "next/link";
 
-//change
 export default function Home() {
   return (
     <div className="mt-40">
+      {user}
       <HeroSec />
       <section className="py-20 bg-red-50">
         <div className="container mx-auto px-4">
