@@ -3,5 +3,5 @@ import { checkUser } from "@/lib/checkUser";
 export async function POST(req) {
     console.log(JSON.stringify(req))
     const user = await checkUser()
-  return Response.json(result);
+  return Response.json(req);
 }
