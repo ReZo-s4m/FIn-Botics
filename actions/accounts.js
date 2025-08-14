@@ -48,7 +48,7 @@ export async function updateDefaultAccount(accountId){
 
 }
 
-export async function getAccountWithTransactions(accountId) {
+export async function getAccountWithTransactions(accountId, startDate, endDate) {
     const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
@@ -65,6 +65,12 @@ export async function getAccountWithTransactions(accountId) {
     },
     include: {
       transactions: {
+        where: {
+          date: {
+            gte: startDate ? new Date(startDate) : undefined,
+            lte: endDate ? new Date(endDate) : undefined,
+          },
+        },
         orderBy: { date: "desc" },
       },
       _count: {
