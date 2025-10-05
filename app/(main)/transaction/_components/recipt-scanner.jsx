@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import useFetch from "@/hooks/use-fetch";
 import { scanReceipt } from "@/actions/transaction";
+import { motion } from "framer-motion";
 
 export function ReceiptScanner({ onScanComplete }) {
   const fileInputRef = useRef(null);
@@ -17,12 +18,19 @@ export function ReceiptScanner({ onScanComplete }) {
   } = useFetch(scanReceipt);
 
   const handleReceiptScan = async (file) => {
+    if (!file) return;
+
     if (file.size > 5 * 1024 * 1024) {
       toast.error("File size should be less than 5MB");
       return;
     }
 
-    await scanReceiptFn(file);
+    try {
+      await scanReceiptFn(file);
+    } catch (error) {
+      console.error("Error scanning receipt:", error);
+      toast.error("Failed to scan receipt");
+    }
   };
 
   useEffect(() => {
@@ -30,10 +38,16 @@ export function ReceiptScanner({ onScanComplete }) {
       onScanComplete(scannedData);
       toast.success("Receipt scanned successfully");
     }
-  }, [scanReceiptLoading, scannedData]);
+  }, [scannedData, scanReceiptLoading]);
 
   return (
-    <div className="flex items-center gap-4">
+    <motion.div 
+      className="w-full"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+    >
       <input
         type="file"
         ref={fileInputRef}
@@ -43,27 +57,30 @@ export function ReceiptScanner({ onScanComplete }) {
         onChange={(e) => {
           const file = e.target.files?.[0];
           if (file) handleReceiptScan(file);
+          e.target.value = ""; // Reset input so same file can be scanned again
         }}
       />
-      <Button
-        type="button"
-        variant="outline"
-        className="w-full h-10 bg-gradient-to-br from-orange-500 via-pink-500 to-purple-500 animate-gradient hover:opacity-90 transition-opacity text-white hover:text-white"
-        onClick={() => fileInputRef.current?.click()}
-        disabled={scanReceiptLoading}
-      >
-        {scanReceiptLoading ? (
-          <>
-            <Loader2 className="mr-2 animate-spin" />
-            <span>Scanning Receipt...</span>
-          </>
-        ) : (
-          <>
-            <Camera className="mr-2" />
-            <span>Scan Receipt with AI</span>
-          </>
-        )}
-      </Button>
-    </div>
+      <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full h-12 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl border-0 w-full"
+          onClick={() => fileInputRef.current?.click()}
+          disabled={scanReceiptLoading}
+        >
+          {scanReceiptLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <span>Scanning Receipt...</span>
+            </>
+          ) : (
+            <>
+              <Camera className="mr-2 h-4 w-4" />
+              <span>Scan Receipt with AI</span>
+            </>
+          )}
+        </Button>
+      </motion.div>
+    </motion.div>
   );
 }

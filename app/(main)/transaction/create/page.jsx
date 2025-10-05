@@ -4,28 +4,43 @@ import { AddTransactionForm } from "../_components/transaction-form";
 import { getTransaction } from "@/actions/transaction";
 
 export default async function AddTransactionPage({ searchParams }) {
-  const accounts = await getUserAccounts();
+  // ✅ Await the async searchParams (required by Next.js 15+)
+  const params = await searchParams;
+  const editId = params?.edit;
 
-  // Directly read the "edit" param from searchParams
-  const editId = searchParams?.edit ?? null;
+  // ✅ Fetch accounts and transaction
+  const accounts = await getUserAccounts();
 
   let initialData = null;
   if (editId) {
-    const transaction = await getTransaction(editId);
-    initialData = transaction;
+    initialData = await getTransaction(editId);
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-5">
+  <div
+    className="min-h-screen flex flex-col items-center justify-start"
+    style={{
+      background: "linear-gradient(to right, #282828 0%, #282828 100%)",
+    }}
+  >
+    <div className="max-w-3xl w-full px-5 py-20">
       <div className="flex justify-center md:justify-normal mb-8">
-        <h1 className="text-5xl gradient-title">Add Transaction</h1>
+        <h1 className="text-5xl gradient-title text-white">
+          {editId ? "Edit" : "Add"} Transaction
+        </h1>
       </div>
-      <AddTransactionForm
-        accounts={accounts}
-        categories={defaultCategories}
-        editMode={!!editId}
-        initialData={initialData}
-      />
+
+      {/* 🧾 Transaction Form */}
+      <div className="bg-[#1f1f1f] p-8 rounded-2xl shadow-2xl border border-gray-800">
+        <AddTransactionForm
+          accounts={accounts}
+          categories={defaultCategories}
+          editMode={!!editId}
+          initialData={initialData}
+        />
+      </div>
     </div>
-  );
+  </div>
+);
+
 }

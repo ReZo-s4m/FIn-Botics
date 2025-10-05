@@ -1,4 +1,3 @@
-// app/(dashboard)/dashboard/_components/budget-card.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -16,15 +15,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { updateBudget } from "@/actions/budget";
 import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
+  RadialBarChart,
+  RadialBar,
   Legend,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
-
-const COLORS = ["#ef4444", "#22c55e"]; // red for spent, green for remaining
 
 export function BudgetProgress({ account }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -45,12 +41,18 @@ export function BudgetProgress({ account }) {
     ? Math.max(0, account.budget.amount - account.expenses)
     : 0;
 
-  const pieData = account.budget
-    ? [
-        { name: "Spent", value: account.expenses },
-        { name: "Remaining", value: remaining },
-      ]
-    : [];
+  const chartData = [
+    {
+      name: "Spent",
+      value: account.expenses,
+      fill: "#ef4444", // red
+    },
+    {
+      name: "Remaining",
+      value: remaining,
+      fill: "#22c55e", // green
+    },
+  ];
 
   const handleUpdateBudget = async () => {
     const amount = parseFloat(newBudget);
@@ -80,10 +82,11 @@ export function BudgetProgress({ account }) {
   }, [error]);
 
   return (
-    <Card className="mb-6">
+    <Card
+      className="mb-6 rounded-xl border border-gray-700 shadow-lg text-black" >
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <div className="flex-1">
-          <CardTitle className="text-sm font-medium">
+          <CardTitle className="text-sm font-bold text-black text-xl">
             {account.name} Budget
           </CardTitle>
           <div className="flex items-center gap-2 mt-1">
@@ -93,7 +96,7 @@ export function BudgetProgress({ account }) {
                   type="number"
                   value={newBudget}
                   onChange={(e) => setNewBudget(e.target.value)}
-                  className="w-32"
+                  className="w-32 text-black"
                   placeholder="Enter amount"
                   autoFocus
                   disabled={isLoading}
@@ -104,7 +107,7 @@ export function BudgetProgress({ account }) {
                   onClick={handleUpdateBudget}
                   disabled={isLoading}
                 >
-                  <Check className="h-4 w-4 text-green-500" />
+                  <Check className="h-4 w-4 text-green-400" />
                 </Button>
                 <Button
                   variant="ghost"
@@ -112,12 +115,12 @@ export function BudgetProgress({ account }) {
                   onClick={handleCancel}
                   disabled={isLoading}
                 >
-                  <X className="h-4 w-4 text-red-500" />
+                  <X className="h-4 w-4 text-red-400" />
                 </Button>
               </div>
             ) : (
               <>
-                <CardDescription>
+                <CardDescription className="text-black text-1xl">
                   {account.budget
                     ? `${new Intl.NumberFormat("en-IN", {
                         style: "currency",
@@ -134,7 +137,7 @@ export function BudgetProgress({ account }) {
                   onClick={() => setIsEditing(true)}
                   className="h-6 w-6"
                 >
-                  <Pencil className="h-3 w-3" />
+                  <Pencil className="h-3 w-3 text-black" />
                 </Button>
               </>
             )}
@@ -144,33 +147,38 @@ export function BudgetProgress({ account }) {
 
       <CardContent>
         {account.budget && (
-          <div className="w-full h-60">
+          <div className="w-full h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={pieData}
+              <RadialBarChart
+                cx="50%"
+                cy="50%"
+                innerRadius="40%"
+                outerRadius="80%"
+                barSize={20}
+                data={chartData}
+              >
+                <RadialBar
+                  minAngle={15}
+                  label={{
+                    position: "insideStart",
+                    fill: "#fff",
+                    fontSize: 12,
+                  }}
+                  background
+                  clockWise
                   dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={70}
-                  innerRadius={40}
-                  label={({ name, percent }) =>
-                    `${name}: ${(percent * 100).toFixed(0)}%`
-                  }
-                >
-                  {pieData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
+                  cornerRadius={10}
+                />
+                <Legend
+                  iconSize={10}
+                  layout="horizontal"
+                  verticalAlign="bottom"
+                  align="center"
+                />
                 <Tooltip />
-                <Legend verticalAlign="bottom" />
-              </PieChart>
+              </RadialBarChart>
             </ResponsiveContainer>
-            <p className="text-xs text-muted-foreground text-right mt-2">
+            <p className="text-m text-black-100 text-right -mt-2">
               {percentUsed.toFixed(1)}% used
             </p>
           </div>

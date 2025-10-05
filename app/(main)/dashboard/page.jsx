@@ -27,7 +27,10 @@ async function DashboardPage() {
   );
 
   return (
-    <div className="px-5 space-y-8">
+    <div
+      className="px-5 space-y-8 min-h-screen"
+    >
+      {/* Dashboard Heading */}
       {/* Budget Pie Charts */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {accountsWithBudget.map((account) => (
@@ -35,7 +38,7 @@ async function DashboardPage() {
         ))}
       </div>
 
-      {/* Dashboard Overview (new section) */}
+      {/* Dashboard Overview */}
       <DashboardOverview
         accounts={accounts}
         transactions={transactions || []}
@@ -47,7 +50,7 @@ async function DashboardPage() {
           <Card className="cursor-pointer transition hover:shadow-lg hover:scale-[1.02] rounded-xl border border-gray-200">
             <CardContent className="flex flex-col items-center justify-center text-muted-foreground h-full pt-5">
               <Plus className="h-10 w-10 mb-3 text-red-600" />
-              <p className="text-sm font-medium text-gray-700">New Account</p>
+              <p className="text-sm font-bold text-black-500">New Account</p>
             </CardContent>
           </Card>
         </CreateAccountDrawer>

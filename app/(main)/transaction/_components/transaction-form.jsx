@@ -129,18 +129,18 @@ export function AddTransactionForm({
   );
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 " >
       {/* Receipt Scanner - Only show in create mode */}
       {!editMode && <ReceiptScanner onScanComplete={handleScanComplete} />}
 
       {/* Type */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Type</label>
+      <div className="space-y-2 text-white">
+        <label className="text-sm font-medium  text-white">Type</label>
         <Select
           onValueChange={(value) => setValue("type", value)}
           defaultValue={type}
         >
-          <SelectTrigger>
+          <SelectTrigger className={"w-full"}>
             <SelectValue placeholder="Select type" />
           </SelectTrigger>
           <SelectContent>
@@ -155,8 +155,8 @@ export function AddTransactionForm({
 
       {/* Amount and Account */}
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Amount</label>
+        <div className="space-y-2  text-white">
+          <label className="text-sm font-medium text-white">Amount</label>
           <Input
             type="number"
             step="0.01"
@@ -168,13 +168,13 @@ export function AddTransactionForm({
           )}
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Account</label>
+        <div className="space-y-2 text-white">
+          <label className="text-sm font-medium text-white">Account</label>
           <Select
             onValueChange={(value) => setValue("accountId", value)}
             defaultValue={getValues("accountId")}
           >
-            <SelectTrigger>
+            <SelectTrigger className={"w-full"}>
               <SelectValue placeholder="Select account" />
             </SelectTrigger>
             <SelectContent>
@@ -200,13 +200,13 @@ export function AddTransactionForm({
       </div>
 
       {/* Category */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Category</label>
+      <div className="space-y-2 text-white">
+        <label className="text-sm font-medium text-white">Category</label>
         <Select
           onValueChange={(value) => setValue("category", value)}
           defaultValue={getValues("category")}
         >
-          <SelectTrigger>
+          <SelectTrigger className={"w-full"}>
             <SelectValue placeholder="Select category" />
           </SelectTrigger>
           <SelectContent>
@@ -224,7 +224,7 @@ export function AddTransactionForm({
 
       {/* Date */}
       <div className="space-y-2">
-        <label className="text-sm font-medium">Date</label>
+        <label className="text-sm font-medium  text-white">Date</label>
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -256,8 +256,8 @@ export function AddTransactionForm({
       </div>
 
       {/* Description */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Description</label>
+      <div className="space-y-2 text-white">
+        <label className="text-sm font-medium text-white">Description</label>
         <Input placeholder="Enter description" {...register("description")} />
         {errors.description && (
           <p className="text-sm text-red-500">{errors.description.message}</p>
@@ -265,23 +265,32 @@ export function AddTransactionForm({
       </div>
 
       {/* Recurring Toggle */}
-      <div className="flex flex-row items-center justify-between rounded-lg border p-4">
-        <div className="space-y-0.5">
-          <label className="text-base font-medium">Recurring Transaction</label>
-          <div className="text-sm text-muted-foreground">
-            Set up a recurring schedule for this transaction
-          </div>
-        </div>
-        <Switch
-          checked={isRecurring}
-          onCheckedChange={(checked) => setValue("isRecurring", checked)}
-        />
-      </div>
+      {/* Recurring Toggle */}
+<div className="flex flex-row items-center justify-between rounded-lg border border-gray-700 p-4 bg-[#1f1f1f]/60 backdrop-blur-md">
+  <div className="space-y-0.5 text-white">
+    <label className="text-base font-medium text-white">
+      Recurring Transaction
+    </label>
+    <div className="text-sm text-gray-400">
+      Set up a recurring schedule for this transaction
+    </div>
+  </div>
+
+  <Switch
+    checked={isRecurring}
+    onCheckedChange={(checked) => setValue("isRecurring", checked)}
+    className={cn(
+      "data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-indigo-500 data-[state=checked]:to-purple-500",
+      "data-[state=unchecked]:bg-gray-700 transition-colors duration-300"
+    )}
+  />
+</div>
+
 
       {/* Recurring Interval */}
       {isRecurring && (
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Recurring Interval</label>
+        <div className="space-y-2 text-white">
+          <label className="text-sm font-medium text-white">Recurring Interval</label>
           <Select
             onValueChange={(value) => setValue("recurringInterval", value)}
             defaultValue={getValues("recurringInterval")}

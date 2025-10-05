@@ -81,7 +81,7 @@ export function DashboardOverview({ accounts, transactions }) {
       {/* Recent Transactions Card */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-          <CardTitle className="text-base font-normal">
+          <CardTitle className="text-base font-bold text-xl ">
             Recent Transactions
           </CardTitle>
           <Select
@@ -147,7 +147,7 @@ export function DashboardOverview({ accounts, transactions }) {
       {/* Expense Breakdown Card */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base font-normal">
+          <CardTitle className="text-base font-bold text-xl">
             Monthly Expense Breakdown
           </CardTitle>
         </CardHeader>
