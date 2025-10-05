@@ -31,19 +31,17 @@ const HeroSec = () => {
       {/* Dark gradient background */}
       <div
         className="absolute inset-0"
-        style={{ background: "linear-gradient(to right, #282828 0%, #282828 100%)" }}
+        style={{
+          background: "linear-gradient(to right, #282828 0%, #282828 100%)",
+        }}
       />
 
       <div className="container mx-auto text-center relative z-10">
         {/* Heading */}
-        <h1 
-          className="text-5xl md:text-7xl lg:text-[100px] pb-6 gradient-title bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent"
-        >
+        <h1 className="text-5xl md:text-7xl lg:text-[100px] pb-6 gradient-title bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
           Optimize Your Finances <br /> with Intelligence
         </h1>
-        <p 
-          className="text-xl text-gray-100 mb-8 max-w-2xl mx-auto leading-relaxed"
-        >
+        <p className="text-xl text-gray-100 mb-8 max-w-2xl mx-auto leading-relaxed">
           An AI-powered financial management platform that helps you track,
           analyze, and optimize your spending with real-time insights.
         </p>
@@ -53,7 +51,12 @@ const HeroSec = () => {
           <Link href="/dashboard">
             <Button
               size="lg"
-              className="px-8 py-4 rounded-full text-lg bg-gradient-to-r from-[#E63946] to-[#FF0000] hover:from-[#D62828] hover:to-[#B71C1C] shadow-lg transition-all duration-300"
+              className="px-8 py-4 rounded-full text-lg
+  bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] 
+  hover:from-[#6366f1] hover:to-[#a78bfa] 
+  shadow-lg shadow-[#8b5cf6]/50
+  text-white
+  transition-all duration-300"
             >
               Get Started
             </Button>
