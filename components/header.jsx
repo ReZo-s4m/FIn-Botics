@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { LayoutDashboard, Menu, PenBox } from "lucide-react";
@@ -54,7 +54,8 @@ const Header = () => {
             </SignedIn>
 
             <SignedOut>
-              <SignInButton forceRedirectUrl="/dashboard">
+              {/* Updated to redirect to custom sign-in page */}
+              <Link href="/sign-in">
                 <Button
                   variant="outline"
                   size="sm"
@@ -62,7 +63,7 @@ const Header = () => {
                 >
                   Log In
                 </Button>
-              </SignInButton>
+              </Link>
             </SignedOut>
           </div>
 
