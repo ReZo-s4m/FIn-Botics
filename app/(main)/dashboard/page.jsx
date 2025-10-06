@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { getUserAccounts, getDashboardData } from "@/actions/dashboard";
 import { getCurrentBudget } from "@/actions/budget";
 import AccountCard from "./_components/account-card";
@@ -7,14 +6,17 @@ import { BudgetProgress } from "./_components/budget-progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import { DashboardOverview } from "./_components/transaction-overview";
+import { redirect } from "next/navigation";
 
-async function DashboardPage() {
-  const [accounts, transactions] = await Promise.all([
-    getUserAccounts(),
-    getDashboardData(),
-  ]);
+export default async function DashboardPage() {
+  const accounts = await getUserAccounts();
+  const transactions = await getDashboardData();
 
-  // Fetch budget for each account
+  // Redirect if user is not authenticated
+  if (!accounts || !transactions) {
+    redirect("/sign-in");
+  }
+
   const accountsWithBudget = await Promise.all(
     accounts.map(async (account) => {
       const budget = await getCurrentBudget(account.id);
@@ -27,11 +29,8 @@ async function DashboardPage() {
   );
 
   return (
-    <div
-      className="px-5 space-y-8 min-h-screen"
-    >
-      {/* Dashboard Heading */}
-      {/* Budget Pie Charts */}
+    <div className="px-5 space-y-8 min-h-screen mt-24">
+      {/* Budget Progress */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {accountsWithBudget.map((account) => (
           <BudgetProgress key={account.id} account={account} />
@@ -39,12 +38,9 @@ async function DashboardPage() {
       </div>
 
       {/* Dashboard Overview */}
-      <DashboardOverview
-        accounts={accounts}
-        transactions={transactions || []}
-      />
+      <DashboardOverview accounts={accounts} transactions={transactions || []} />
 
-      {/* Account Grid */}
+      {/* Accounts Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <CreateAccountDrawer>
           <Card className="cursor-pointer transition hover:shadow-lg hover:scale-[1.02] rounded-xl border border-gray-200">
@@ -62,5 +58,3 @@ async function DashboardPage() {
     </div>
   );
 }
-
-export default DashboardPage;
