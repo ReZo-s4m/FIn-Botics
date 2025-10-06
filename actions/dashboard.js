@@ -24,7 +24,7 @@ export async function getUserAccounts() {
       data: {
         clerkUserId: userId,
         name: "New User",
-        email: "", // you can fill this from Clerk API if needed
+        email: `${userId}@placeholder.com`, // you can fill this from Clerk API if needed
       },
     });
   }
@@ -63,7 +63,7 @@ export async function createAccount(data) {
         data: {
           clerkUserId: userId,
           name: "New User",
-          email: "", // optional
+          email: `${userId}@placeholder.com`, // optional
         },
       });
     }
@@ -115,7 +115,7 @@ export async function getDashboardData() {
       data: {
         clerkUserId: userId,
         name: "New User",
-        email: "",
+        email: `${userId}@placeholder.com`,
       },
     });
   }
