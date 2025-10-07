@@ -150,7 +150,7 @@ export default function RootLayout({ children }) {
               {/* Copyright */}
               <div className="border-t border-blue-400/30 pt-8 text-center">
                 <p className="text-blue-200 text-sm">
-                  &copy; {new Date().getFullYear()} TypeFinance. All rights
+                  &copy; {new Date().getFullYear()} FinBotics. All rights
                   reserved.
                 </p>
               </div>
