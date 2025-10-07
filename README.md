@@ -1,159 +1,91 @@
+# 💰 FinBotics — Smart Finance Management Platform
 
+### 🌐 Live Demo  
+👉 [https://fin-botics-three.vercel.app/](https://fin-botics-three.vercel.app/)
 
------
+---
 
-# Project Documentation
+## 🚀 Overview
 
-## Features
+**FinBotics** is a modern full-stack web application for managing personal finances efficiently.  
+Track income, expenses, budgets, and accounts — all in a secure dashboard.  
+Built with **Next.js**, **Prisma**, and **PostgreSQL**, FinBotics provides real-time insights and a seamless user experience.
 
-### Core Functionality
+---
 
-#### Authentication
+## 📊 Dashboard
 
-  - Secure user authentication is handled using **Clerk**.
-  - Ensures user data is protected and associated with the correct account.
-  - When a user logs in for the first time, their information is saved in the database.
+- Central hub for users to manage finances.
+- Overview of:
+  - Financial information
+  - Account balances
+  - Recent transactions & spending trends
 
-#### Landing Page
+---
 
-  - High-level overview of the application.
-  - Showcases:
-      - Key statistics
-      - Core features (advanced analytics, receipt scanning)
-      - Simplified guide on how to use the platform.
+## 🏦 Account Management
 
-#### Dashboard
+- Create, update, and manage accounts:
+  - Name, type (Current/Savings), initial balance, currency
+  - Set a **default account** for streamlined recording
 
-  - Central hub for users to manage their finances.
-  - Provides a summary of:
-      - Financial information
-      - Account balances
-      - Recent transactions.
+---
 
-#### Account Management
+## 💸 Transaction Management
 
-  - Manage financial accounts:
-      - Create new accounts (name, type - Current/Savings, initial balance, currency).
-      - Update existing accounts.
-      - Set a default account for streamlined transaction recording.
+- Add, edit, delete income/expense transactions
+- Each transaction includes:
+  - Type, amount, date, description, category, associated account
 
-#### Transaction Management
+---
 
-  - Core feature for tracking income and expenses:
-      - Create new transactions
-      - List existing transactions
-      - Edit transaction details
-      - Delete records
-  - Each transaction includes:
-      - Type (income/expense)
-      - Amount
-      - Date
-      - Description
-      - Category
-      - Associated account
+## 🗂️ Categories & Budgets
 
-#### Transaction Listing
+- Predefined or custom categories (Salary, Housing, Food, Travel)
+- Create budgets (Daily, Weekly, Monthly, Yearly)
+- Track progress visually
 
-  - Transactions displayed in an organized list sorted by date.
-  - Date ranges can be specified for review.
+---
 
-#### Adding Transactions
+## ✨ Core Features
 
-  - Add income/expense transactions easily:
-      - Amount
-      - Date
-      - Category
-      - Description
+- 🔐 **Authentication** via Clerk
+- 💸 **Transactions** (CRUD)
+- 📊 **Dashboard** (real-time summaries)
+- 🏦 **Accounts** (multi-account management)
+- 🎯 **Budgets** (category-based)
+- 📁 **Categories** (predefined/custom)
+- ⚡ **Analytics** (visual charts)
 
-#### Filtering
+---
 
-  - Filter transactions by:
-      - Category
-      - Date range
+## 🌟 Bonus Features
 
-#### Categories
+- ⚙️ **API Pagination** for large datasets
+- 🔄 **Real-Time Updates**
+- 📈 **Data Visualization**
 
-  - Predefined transaction categories for better analysis:
-      - Examples: Salary, Housing, Food
-      - Each category includes:
-          - Name
-          - Type (income/expense)
-          - Color
-          - Icon
+---
 
-#### Budgets
+## 🧠 Tech Stack
 
-  - Create budgets for different categories.
-  - Define budgets for various periods:
-      - Daily, Weekly, Monthly, Yearly
-  - Helps in effective financial planning.
+| Layer | Technologies |
+|--------|--------------|
+| **Frontend** | Next.js, React, Tailwind CSS |
+| **Backend** | Node.js, Prisma ORM |
+| **Database** | PostgreSQL |
+| **Auth & Security** | Clerk, Arcjet |
+| **AI / APIs** | Gemini API, Resend |
+| **Hosting** | Vercel |
 
-#### Data Serialization
+---
 
-  - Converts data from database (Decimal type) to front-end friendly formats (JavaScript numbers).
+## ⚙️ Full Setup & Running the Project
 
------
-
-## Advanced Features & Requirements
-
-  - **Income/Expense Entry via Web App**: User-friendly web interface for adding financial records.
-  - **Time-Range Based Listing**: Fetch all transactions within a specified time range.
-  - **Graphical Reports**: Insightful visual analytics:
-      - **Expenses by Category** – Visualize spending distribution.
-      - **Expenses by Date** – Track spending trends.
-  - **Receipt Extraction**: Upload receipts (images or PDFs) for OCR-based transaction data extraction.
-
------
-
-## Bonus Features
-
- 
-  - **API Pagination**: Efficient transaction list handling for large datasets.
-
-
------
-
-## Data Model
-
-### Users
-
-  - `ID`, `Clerk User ID`, `email`, `name`, `image URL`
-
-### Accounts
-
-  - `ID`, `name`, `type`, `balance`, `currency`, `isDefault`, `userId`
-
-### Transactions
-
-  - `ID`, `type`, `amount`, `description`, `date`, `category`, `receipt URL`, `isRecurring`, `recurringInterval`, `nextRecurringDate`, `status`, `userId`, `accountId`
-
-### Budgets
-
-  - `ID`, `amount`, `currency`, `period`, `startDate`, `endDate`, `userId`, `categoryId`
-
-### Categories
-
-  - `ID`, `name`, `type`, `color`, `icon`, `userId`
-
------
-
-## Technologies
-
-  - **Frontend**: Next.js, React
-  - **Backend**: Node.js, Next.js API routes
-  - **Database**: PostgreSQL, Prisma
-  - **Authentication**: Clerk
-
------
-
-
-
-## Setup & Running the Project
-
-### Step 1: Install Dependencies
-
+### 1️⃣ Install Dependencies
 ```bash
 npm install
+
 ```
 
 ### Step 2: Start the Development Server
